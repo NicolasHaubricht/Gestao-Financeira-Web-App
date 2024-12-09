@@ -65,12 +65,14 @@ layout = dbc.Col([
                     )
                 ])
             ], width=4)
-        ], style={'margin-top': 30}),
+        ], style={'margin-top': 30, 'margin-left': '10px'}),
 
         # Filtro de Lançamento
         dbc.Row([
+            # Card Filtro de Lançamento
             dbc.Col([
                 dbc.Card([
+                    # Titulo
                     html.Legend('Filtrar Lançamentos', className='card-title'),
 
                     # Receitas
@@ -112,9 +114,20 @@ layout = dbc.Col([
                         style={'z-index': '100'}
                     ),
                 ])
-            ], width=4)
+            ], width=4),
+
+            # Graficos
+            dbc.Col([
+                dbc.Card(dcc.Graph(id='graph1'), style={'height': '100%', 'padding': '10px'})
+            ], width=8)
+        ], style={'margin': '10px'}),
+
+        dbc.Row([
+            dbc.Col(dbc.Card(dcc.Graph(id='graph2'), style={'padding': '10px'}), width=6),
+            dbc.Col(dbc.Card(dcc.Graph(id='graph3'), style={'padding': '10px'}), width=3),
+            dbc.Col(dbc.Card(dcc.Graph(id='graph4'), style={'padding': '10px'}), width=3),
         ])
-    ])
+])
 
 
 
