@@ -69,7 +69,50 @@ layout = dbc.Col([
 
         # Filtro de Lançamento
         dbc.Row([
-            
+            dbc.Col([
+                dbc.Card([
+                    html.Legend('Filtrar Lançamentos', className='card-title'),
+
+                    # Receitas
+                    html.Label('Categoria das Receitas'),
+                    html.Div(
+                        dcc.Dropdown(
+                            id='dropdown-receita',
+                            clearable=False,
+                            style={'width': '100%'},
+                            persistence=True,
+                            persistence_type='session',
+                            multi=True
+                        )
+                    ),
+
+                    # Despesas
+                    html.Label('Categoria das Despesas'),
+                    html.Div(
+                        dcc.Dropdown(
+                            id='dropdown-despesas',
+                            clearable=False,
+                            style={'width': '100%'},
+                            persistence=True,
+                            persistence_type='session',
+                            multi=True
+                        )
+                    ),
+
+                    # Período de Análise
+                    html.Legend("Período de Análise", style={"margin-top": "10px"}),    
+                    dcc.DatePickerRange(
+                        month_format='Do MMM, YY',
+                        end_date_placeholder_text='Data...',
+                        start_date=datetime.today(),
+                        end_date=datetime.today() + timedelta(days=31),
+                        with_portal=True,
+                        updatemode='singledate',
+                        id='date-picker-config',
+                        style={'z-index': '100'}
+                    ),
+                ])
+            ], width=4)
         ])
     ])
 
