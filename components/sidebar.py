@@ -132,6 +132,7 @@ layout = dbc.Col([
                 dbc.Modal([
                     dbc.ModalHeader(dbc.ModalTitle('Adicionar Despesa')),
                     dbc.ModalBody([
+                        # Titulo Adicionar Despesa
                         dbc.Row([
                             dbc.Col([
                                 dbc.Label('Descrição: '),
@@ -144,6 +145,7 @@ layout = dbc.Col([
                             ], width=6)
                         ]),
 
+                        # Definir Despesa
                         dbc.Row([
                             dbc.Col([
                                 dbc.Label('Data: '),
@@ -173,6 +175,7 @@ layout = dbc.Col([
                             ], width=4)
                         ], style={'margin-top': '25px'}),
 
+                        # Adicionar / Remover Despesa
                         dbc.Row([
                             dbc.Accordion([
                                 dbc.AccordionItem(children=[
