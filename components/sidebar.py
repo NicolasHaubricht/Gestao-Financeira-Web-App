@@ -40,6 +40,7 @@ layout = dbc.Col([
                 dbc.Modal([
                     dbc.ModalHeader(dbc.ModalTitle('Adicionar Receita')),
                     dbc.ModalBody([
+                        # Titulo Adicionar Receita
                         dbc.Row([
                             dbc.Col([
                                 dbc.Label('Descrição: '),
@@ -52,6 +53,7 @@ layout = dbc.Col([
                             ], width=6)
                         ]),
 
+                        # Definir Receita
                         dbc.Row([
                             dbc.Col([
                                 dbc.Label('Data: '),
@@ -81,6 +83,7 @@ layout = dbc.Col([
                             ], width=4)
                         ], style={'margin-top': '25px'}),
 
+                        # Adicionar / Remover Receita
                         dbc.Row([
                             dbc.Accordion([
                                 dbc.AccordionItem(children=[
@@ -115,7 +118,7 @@ layout = dbc.Col([
                                 dbc.Button('Adicionar Receita', id='salvar_receita', color='success'),
                                 dbc.Popover(dbc.PopoverBody('Receita Salva'), target='salvar_receita', placement='left', trigger='click')
                             ])
-                        ], style={'margin-top': '25px'})
+                        ], style={'margin-top': '25px'}  )
                     ]),
                 ], 
                 style={'background-color': 'rgba(17, 140, 79, 0.05)'}, 
@@ -129,6 +132,7 @@ layout = dbc.Col([
                 dbc.Modal([
                     dbc.ModalHeader(dbc.ModalTitle('Adicionar Despesa')),
                     dbc.ModalBody([
+                        # Titulo Adicionar Despesa
                         dbc.Row([
                             dbc.Col([
                                 dbc.Label('Descrição: '),
@@ -141,6 +145,7 @@ layout = dbc.Col([
                             ], width=6)
                         ]),
 
+                        # Definir Despesa
                         dbc.Row([
                             dbc.Col([
                                 dbc.Label('Data: '),
@@ -170,6 +175,7 @@ layout = dbc.Col([
                             ], width=4)
                         ], style={'margin-top': '25px'}),
 
+                        # Adicionar / Remover Despesa
                         dbc.Row([
                             dbc.Accordion([
                                 dbc.AccordionItem(children=[
