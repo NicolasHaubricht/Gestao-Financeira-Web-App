@@ -69,59 +69,48 @@ layout = dbc.Col([
 
         # Filtro de Lançamento
         dbc.Row([
-            # Card Filtro de Lançamento
             dbc.Col([
                 dbc.Card([
-                    # Titulo
-                    html.Legend('Filtrar Lançamentos', className='card-title'),
-
-                    # Receitas
-                    html.Label('Categoria das Receitas'),
-                    html.Div(
-                        dcc.Dropdown(
-                            id='dropdown-receita',
+                        html.Legend("Filtrar lançamentos", className="card-title"),
+                        html.Label("Categorias das receitas"),
+                        html.Div(
+                            dcc.Dropdown(
+                            id="dropdown-receita",
                             clearable=False,
-                            style={'width': '100%'},
+                            style={"width": "100%"},
                             persistence=True,
-                            persistence_type='session',
-                            multi=True
-                        )
-                    ),
-
-                    # Despesas
-                    html.Label('Categoria das Despesas'),
-                    html.Div(
+                            persistence_type="session",
+                            multi=True)                       
+                        ),
+                        
+                        html.Label("Categorias das despesas", style={"margin-top": "10px"}),
                         dcc.Dropdown(
-                            id='dropdown-despesas',
+                            id="dropdown-despesa",
                             clearable=False,
-                            style={'width': '100%'},
+                            style={"width": "100%"},
                             persistence=True,
-                            persistence_type='session',
+                            persistence_type="session",
                             multi=True
-                        )
-                    ),
+                        ),
+                        html.Legend("Período de Análise", style={"margin-top": "10px"}),
+                        dcc.DatePickerRange(
+                            month_format='Do MMM, YY',
+                            end_date_placeholder_text='Data...',
+                            start_date=datetime.today(),
+                            end_date=datetime.today() + timedelta(days=31),
+                            with_portal=True,
+                            updatemode='singledate',
+                            id='date-picker-config',
+                            style={'z-index': '100'})],
 
-                    # Período de Análise
-                    html.Legend("Período de Análise", style={"margin-top": "10px"}),    
-                    dcc.DatePickerRange(
-                        month_format='Do MMM, YY',
-                        end_date_placeholder_text='Data...',
-                        start_date=datetime.today(),
-                        end_date=datetime.today() + timedelta(days=31),
-                        with_portal=True,
-                        updatemode='singledate',
-                        id='date-picker-config',
-                        style={'z-index': '100'}
-                    ),
-                ])
+                style={"height": "100%", "padding": "20px"}), 
+
             ], width=4),
 
-            # Graficos
-            dbc.Col([
-                dbc.Card(dcc.Graph(id='graph1'), style={'height': '100%', 'padding': '10px'})
-            ], width=8)
-        ], style={'margin': '10px'}),
-
+            dbc.Col(dbc.Card(dcc.Graph(id="graph1"), style={"height": "100%", "padding": "10px"}), width=8),
+        ], style={"margin": "10px"}),
+        
+        # Graficos
         dbc.Row([
             dbc.Col(dbc.Card(dcc.Graph(id='graph2'), style={'padding': '10px'}), width=6),
             dbc.Col(dbc.Card(dcc.Graph(id='graph3'), style={'padding': '10px'}), width=3),

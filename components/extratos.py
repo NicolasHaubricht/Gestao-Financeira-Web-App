@@ -12,7 +12,11 @@ from app import app
 
 # =========  Layout  =========== #
 layout = dbc.Col([
-
+    dbc.Row([
+        dbc.Col([
+            html.H1('Data Visualization'),
+        ])
+    ])
 
 
 ], )
