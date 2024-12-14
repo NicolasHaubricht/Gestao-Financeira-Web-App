@@ -9,7 +9,7 @@ from datetime import datetime, date
 import plotly.express as px
 import numpy as np
 import pandas as pd
-
+from globals import *
 
 
 
@@ -69,8 +69,8 @@ layout = dbc.Col([
                             dbc.Col([
                                 dbc.Label('Extras: '),
                                 dbc.Checklist(
-                                    options=[],
-                                    value=[],
+                                    options=[{"label": "Foi recebida", "value": 1}, {"label": "Receita Recorrente", "value": 2}],
+                                    value=[1],
                                     id='switches-input-receita',
                                     switch=True
                                 )
@@ -79,7 +79,10 @@ layout = dbc.Col([
                             dbc.Col([
                                 html.Label('Categoria da receita'),
                                 dbc.Select(
-                                    id='select_receita', options=[], value=[])
+                                    id='select_receita', 
+                                    options=[{'label': i, 'value': i} for i in cat_receita],
+                                    value=cat_receita[0]
+                                )
                             ], width=4)
                         ], style={'margin-top': '25px'}),
 
@@ -132,7 +135,7 @@ layout = dbc.Col([
                 dbc.Modal([
                     dbc.ModalHeader(dbc.ModalTitle('Adicionar Despesa')),
                     dbc.ModalBody([
-                        
+
                         # Titulo Adicionar Despesa
                         dbc.Row([
                             dbc.Col([
@@ -162,8 +165,8 @@ layout = dbc.Col([
                             dbc.Col([
                                 dbc.Label('Extras: '),
                                 dbc.Checklist(
-                                    options=[],
-                                    value=[],
+                                    options=[{"label": "Foi recebida", "value": 1}, {"label": "Despesa Recorrente", "value": 2}],
+                                    value=[1],
                                     id='switches-input-despesa',
                                     switch=True
                                 )
@@ -172,7 +175,10 @@ layout = dbc.Col([
                             dbc.Col([
                                 html.Label('Categoria da Despesa'),
                                 dbc.Select(
-                                    id='select_despesa', options=[], value=[])
+                                    id='select_despesa', 
+                                    options=[{'label': i, 'value': i} for i in cat_despesa], 
+                                    value=cat_despesa[0]
+                                )
                             ], width=4)
                         ], style={'margin-top': '25px'}),
 
@@ -254,3 +260,67 @@ def toogle_modal(n1, is_open):
 def toogle_modal(n1, is_open):
     if n1:
         return not is_open
+    
+
+@app.callback(
+    Output('store-receitas', 'data'),
+
+    Input("salvar_receita", "n_clicks"),
+
+    [
+        State("txt-receita", "value"),
+        State("valor_receita", "value"),
+        State("date-receitas", "date"),
+        State("switches-input-receita", "value"),
+        State("select_receita", "value"),
+        State('store-receitas', 'data')
+    ]
+)
+def salve_form_receita(n, descricao, valor, date, switches, categoria, dict_receitas):
+    df_receitas = pd.DataFrame(dict_receitas)
+
+    if n and not(valor == "" or valor== None):
+        valor = round(float(valor), 2)
+        date = pd.to_datetime(date).date()
+        categoria = categoria[0] if type(categoria) == list else categoria
+
+        recebido = 1 if 1 in switches else 0
+        fixo = 0 if 2 in switches else 0
+
+        df_receitas.loc[df_receitas.shape[0]] = [valor, recebido, fixo, date, categoria, descricao]
+        df_receitas.to_csv("df_receitas.csv")
+
+    data_return = df_receitas.to_dict()
+    return data_return
+
+
+@app.callback(
+    Output('store-despesas', 'data'),
+
+    Input("salvar_despesa", "n_clicks"),
+
+    [
+        State("txt-despesa", "value"),
+        State("valor_despesa", "value"),
+        State("date-despesas", "date"),
+        State("switches-input-despesa", "value"),
+        State("select_despesa", "value"),
+        State('store-despesas', 'data')
+    ]
+)
+def salve_form_despesa(n, descricao, valor, date, switches, categoria, dict_despesas):
+    df_despesas = pd.DataFrame(dict_despesas)
+
+    if n and not(valor == "" or valor== None):
+        valor = round(float(valor), 2)
+        date = pd.to_datetime(date).date()
+        categoria = categoria[0] if type(categoria) == list else categoria
+
+        recebido = 1 if 1 in switches else 0
+        fixo = 0 if 2 in switches else 0
+
+        df_despesas.loc[df_despesas.shape[0]] = [valor, recebido, fixo, date, categoria, descricao]
+        df_despesas.to_csv("df_despesas.csv")
+
+    data_return = df_despesas.to_dict()
+    return data_return

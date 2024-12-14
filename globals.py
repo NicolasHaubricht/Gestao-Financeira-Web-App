@@ -6,6 +6,10 @@ import pandas as pd
 if ('df_despesas.csv' in os.listdir()) and ('df_receitas.csv' in os.listdir()):
     df_despesas = pd.read_csv('df_despesas.csv', index_col=0, parse_dates=True)
     df_receitas = pd.read_csv('df_receitas.csv', index_col=0, parse_dates=True)
+    df_despesas["Data"] = pd.to_datetime(df_despesas["Data"])
+    df_receitas["Data"] = pd.to_datetime(df_receitas["Data"])
+    df_despesas["Data"] = df_despesas["Data"].apply(lambda x: x.date())
+    df_receitas["Data"] = df_receitas["Data"].apply(lambda x: x.date())
 
 # Cria estruturas de dados para receitas e despesas caso os arquivos não existam no diretório atual
 else:
@@ -37,9 +41,9 @@ if ('df_cat_despesas.csv' in os.listdir())and ('df_cat_receitas.csv' in os.listd
 else:
     cat_receita = {'Categoria':['Salário', 'Investimentos', 'Comissão']}
     cat_despesa = {'Categoria':['Aluguel', 'Alimentação', 'Lazer', 'Gasolina']}
-
-    df_cat_receita = pd.DataFrame(cat_receita)
-    df_cat_despesa = pd.DataFrame(cat_despesa)
+    
+    df_cat_receita = pd.DataFrame(cat_receita, columns=['Categoria'])
+    df_cat_despesa = pd.DataFrame(cat_despesa, columns=['Categoria'])
 
     df_cat_receita.to_csv('df_cat_receitas.csv')
     df_cat_despesa.to_csv('df_cat_despesas.csv')
