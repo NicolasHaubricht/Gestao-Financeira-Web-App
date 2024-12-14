@@ -9,12 +9,18 @@ from app import *
 from components import sidebar
 from components import dashboards
 from components import extratos
+from globals import *
 
 # =========  Layout  =========== #
 content = html.Div(id="page-content")
 
 
 app.layout = dbc.Container(children=[
+    dcc.Store(id='store-receitas', data=df_receitas.to_dict()),
+    dcc.Store(id='store-despesas', data=df_despesas.to_dict()),
+    dcc.Store(id='stored-cat-receitas', data=df_cat_receitas.to_dict()),
+    dcc.Store(id='stored-cat-despesas', data=df_cat_despesas.to_dict()),
+    
     dbc.Row([
         dbc.Col([
             dcc.Location(id='url'),

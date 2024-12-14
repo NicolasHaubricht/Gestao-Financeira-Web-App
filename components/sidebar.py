@@ -132,6 +132,7 @@ layout = dbc.Col([
                 dbc.Modal([
                     dbc.ModalHeader(dbc.ModalTitle('Adicionar Despesa')),
                     dbc.ModalBody([
+                        
                         # Titulo Adicionar Despesa
                         dbc.Row([
                             dbc.Col([
